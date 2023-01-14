@@ -17,21 +17,29 @@ fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.
 fruit_to_show = my_fruit_list.loc[fruits_selected]
 
 streamlit.dataframe(fruit_to_show)
+#fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 
-
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 # streamlit.text(fruityvice_response)
 
 streamlit.header("Fruityvice Fruit Advice!")
 #streamlit.text(fruityvice_response.json()) --removing this line as it is required to load text part into json
-
+#fruit_choice=streamlit.text_input('What fruit would you like information about?','kiwi')
+#streamlit.write('the user entered:',fruit_choice)
+#use of try and cache now
+try:
+  fruit_choice = streamlit.text_input('What fruit would you like information about?')
+  if not fruit_choice:
+         streamlit.error('please select one fruit}
+  else:
+      fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+      fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+      streamlit.dataframe(fruityvice_normalized)              
 # write your own comment -what does the next line do?
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+#fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # write your own comment - what does this do?
-streamlit.dataframe(fruityvice_normalized)
+#streamlit.dataframe(fruityvice_normalized)
 #below code kiwi is default value in case no value is supplied)
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)
+
 
 streamlit.stop()
 
