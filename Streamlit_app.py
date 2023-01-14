@@ -53,8 +53,8 @@ except URLError as e:
 #streamlit.dataframe(fruityvice_normalized)
 #below code kiwi is default value in case no value is supplied)
 
-
-streamlit.stop()
+#stop is used for troubleshooting purpose only
+#streamlit.stop() 
 
 
 #my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
